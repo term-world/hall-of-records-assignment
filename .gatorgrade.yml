@@ -1,0 +1,77 @@
+# TODOs
+
+- description: No TODO markers left in reflection.md or editorial.md
+  check: ExecuteCommand
+  options:
+    command: 'bash .tests/.todos'
+- Processor.py:
+  - description: 'Processor.py contains no TODO markers'
+    check: MatchFileFragment
+    options:
+      fragment: 'TODO'
+      count: 0
+      exact: true
+
+# Functions
+
+- Processor.py:
+  - description: Processor.py implements a function called search_rows with 2 parameters
+    check: MatchFileRegex
+    options:
+      regex: 'def search_rows\([a-zA-Z0-9_\:\s=#"]+,(\s)?[a-zA-Z0-9_\:\s=#"]+\)(.*)?\:'
+      count: 1
+      exact: true
+- Processor.py:
+  - description: Processor.py implements a function called total_column with 1 parameters
+    check: MatchFileRegex
+    options:
+      regex: 'def total_column\([a-zA-Z0-9_\:\s=#"]+\)(.*)?\:'
+      count: 1
+      exact: true
+- Processor.py:
+  - description: Processor.py calls a function called search_rows, passing 2 arguments
+    check: MatchFileRegex
+    options:
+      regex: 'search_rows\([a-zA-Z0-9_\(\)"]+,(\s)?[a-zA-Z0-9_\(\)"]+\)'
+      count: 1
+      exact: false
+- Processor.py:
+  - description: Processor.py calls a function called total_column, passing 1 argument
+    check: MatchFileRegex
+    options:
+      regex: 'total_column\([a-zA-Z0-9_\(\)\[\]"]+\)'
+      count: 1
+      exact: false
+  
+  # Code cops
+
+- Processor.py:
+  - description: Processor.py iterates (for loop) over the DATA set enough times
+    check: MatchFileRegex
+    options:
+      regex: 'for\s[a-zA-Z0-9_]+\sin\sDATA\:'
+      count: 2
+      exact: false
+- Processor.py:
+  - description: search_rows uses the correct relational operator (>=) to test values
+    check: MatchFileRegex
+    options:
+      regex: 'if\s[a-zA-Z0-9\[\]_\(\)]+\s>\='
+      count: 1
+      exact: false
+- Processor.py:
+  - description: Processor.py uses a break statement to quit the program
+    check: MatchFileFragment
+    options: 
+      fragment: 'break'
+      count: 1
+      exact: false
+- Processor.py:
+  - description: Processor.py uses f-strings in print statements to display results
+    check: MatchFileRegex
+    options:
+      regex: 'print\(f"'
+      count: 2
+      exact: false
+
+  # Does it work or b0rk?
