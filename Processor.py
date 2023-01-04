@@ -54,58 +54,14 @@ class Processor(FixtureSpec):
         console.print(table)
 # Do not alter -----------------------------------------------
 
-# Student minimal solution -----------------------------------
-def search_rows(field: str = "#", value: any = 0) -> list:
-    rows = []
-    for row in DATA:
-        if int(row[field]) >= int(value):
-            rows.append(row)
-    return rows
 
-def total_column(field: str = "#") -> int:
-    total = 0
-    for row in DATA:
-        total += row[field]
-    return total
-# Student minimal solution -----------------------------------
+# TODO: Implement search_rows function according to README, a function
+#       which searches a column for a minimum value or _greater_ and 
+#       returns all rows which match.
 
-# Professor trickery -----------------------------------------
+# TODO: Implmement total_column function according to README, a function
+#       which adds all numeric values for a column
 
-def auto_averager() -> dict:
-    """ This function is not required. Some students may discover how to do it. """
-    
-    # For folks looking for extra-curricular learning,
-    # no "if" statement required:
-    # fields = [field for field in DATA[0] if field != "ID"]
-    # Or, the could remove the ID column temporarily
-    # Or, see ideal_matches below
-
-    ideals = {}
-    for field in DATA[0]:
-        if field != "ID" and field != "#":
-            total = 0
-            rows = search_rows(field, 0)
-            for row in DATA:
-                total += row[field]
-            ideals[field] = int(round(total/len(rows),0))
-    return ideals
-
-def ideal_matches(ideals: dict = {}) -> list:
-    """ This is definitely not a function that students need; it's for my trick. """
-
-    # SPOILER: ONLY I MATCH THE CRITERIA; EVERYONE ELSE IS "LOCKED OUT"
-
-    fields = list(ideals.keys())
-    for field in fields:
-        for row in DATA:
-            rows = []
-            if int(row[field]) < ideals[field]:
-                rows.append(row)
-            for row in rows:
-                idx = DATA.index(row)
-                DATA.pop(idx)
-    return DATA
-# Professor trickery -----------------------------------------
 
 def main():
 
@@ -117,32 +73,19 @@ def main():
     # Do not alter -------------------------------------------
 
     while True:
-        if not response:
-            break
-        if response == 1:
-            choice = input("Field to search: ")
-            value = input("Value to search for: ")
-            rows = search_rows(choice, value)
-            print(f"Found {len(rows)} rows.")
-        if response == 2:
-            choice = input("Field to total: " )
-            total = total_column(choice)
-            print(f"Total of {choice}: {total}.")
-        if response == 3:
-            choice = input("Field to average: ")
-            total = total_column(choice)
-            rows = search_rows(choice, 0)
-            print(f"Average of {choice}: {total/len(rows)}.")
+        
+        # TODO: Implement if statements to handle menu options
+        #
+        # If response is false, break
+        # If response is 1, run search_rows
+        # If response is 2, run total_column
+        # If response is 3, return the average of a given column
+        #
+        # HINT: Use the pass keyword to put a "placeholder" for all
+        #       functionality not yet implement
+
         if response == 4:
             obj.display_table()
-        # SECRET, obvs --------------------------------------
-        if response == "SECRET":
-            ideal = auto_averager()
-            ideals = ideal_matches(ideal)
-            for result in ideals:
-                for field in result:
-                    print(f"{field}: {result[field]}")
-        # SECRET, obvs --------------------------------------
         response = obj.display_menu()
 
 if __name__ == "__main__":
